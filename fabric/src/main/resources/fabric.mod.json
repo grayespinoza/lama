@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "look-at-my-arms",
+  "version": "${mod_version}",
+  "name": "Look At My Arms",
+  "description": "${mod_description}",
+  "authors": ["eyeofgrey"],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/lama",
+    "sources": "https://github.com/grayespinoza/lama",
+    "issues": "https://github.com/grayespinoza/lama/issues"
+  },
+  "license": "${license}",
+  "icon": "assets/look-at-my-arms/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["dev.heygrey.LookAtMyArms"],
+    "modmenu": ["dev.heygrey.config.ModMenuIntegration"]
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.github_releases": "https://github.com/grayespinoza/lama/releases",
+        "modmenu.modrinth": "https://modrinth.com/mod/lama"
+      }
+    }
+  },
+  "mixins": ["look-at-my-arms.mixins.json"],
+  "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=${java_version}",
+    "fabric-api": "*",
+    "cloth-config": "*"
+  },
+  "suggests": {
+    "modmenu": "*",
+    "firstperson": "*"
+  }
+}

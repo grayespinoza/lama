@@ -1,0 +1,14 @@
+{
+  "text.autoconfig.look-at-my-arms.title": "Look At My Arms Configuration",
+
+  "text.autoconfig.look-at-my-arms.category.Client": "Client",
+
+  "text.autoconfig.look-at-my-arms.option.modEnabled": "Mod Enabled",
+  "text.autoconfig.look-at-my-arms.option.modEnabled.@Tooltip": "Should the mod be enabled?",
+
+  "text.autoconfig.look-at-my-arms.option.modEnabledAlert": "Mod Enabled Alert",
+  "text.autoconfig.look-at-my-arms.option.modEnabledAlert.@Tooltip": "Should text be displayed when pressing the Mod Enabled keybind?",
+
+  "key.look-at-my-arms": "Look At My Arms",
+  "key.look-at-my-arms.toggle_mod_enabled": "Toggle Mod Enabled"
+}
