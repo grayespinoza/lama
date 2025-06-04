@@ -1,6 +1,10 @@
 # Changelog
 
-## [0.1.1+1.21.x](https://github.com/grayespinoza/lama/compare/0.1.0+1.21.x..0.1.1+1.21.x) - 2025-06-04
+## [0.2.0+1.21.x](https://github.com/grayespinoza/lama/compare/0.1.0+1.21.x..0.2.0+1.21.x) - 2025-06-04
+
+### Features
+
+- Add config options to affect individual body parts - ([d0c9f19](https://github.com/grayespinoza/lama/commit/d0c9f19f7754e93505f5fe8ebc7319cd6fef9dca))
 
 ### Bug Fixes
 
