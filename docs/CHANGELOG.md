@@ -9,6 +9,10 @@
 ### Bug Fixes
 
 - Restore player model and armor in inventory screen - ([a47c722](https://github.com/grayespinoza/lama/commit/a47c7221c5a4a456ff3b773ca02bc9f70e1fe8e0))
+
+### Miscellaneous Tasks
+
+- Bump mod version - ([d21b841](https://github.com/grayespinoza/lama/commit/d21b8411a498e3f2e5a255f7f0e63b23521e6732))
 ## 0.1.0+1.21.x - 2025-06-03
 
 ### Features
