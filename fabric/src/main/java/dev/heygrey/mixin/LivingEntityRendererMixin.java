@@ -46,6 +46,10 @@ public abstract class LivingEntityRendererMixin<
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
+    if (MinecraftClient.getInstance().currentScreen != null) {
+      original.call(model, matrices, vertices, light, overlay, color);
+      return;
+    }
     boolean isSelf =
         playerState.name.equals(MinecraftClient.getInstance().player.getName().getString());
     if (!isSelf) {
