@@ -53,7 +53,7 @@ public abstract class ArmorFeatureRendererMixin<
       return;
     }
     if (MinecraftClient.getInstance().currentScreen != null) {
-      original.call(model, matrices, vertices, light, overlay, color);
+      original.call(renderer, matrices, vertexConsumers, stack, slot, light, armorModel);
       return;
     }
     boolean isSelf =

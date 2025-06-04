@@ -62,9 +62,21 @@ public abstract class LivingEntityRendererMixin<
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
-    ((PlayerEntityModel) model).body.visible = false;
-    ((PlayerEntityModel) model).leftLeg.visible = false;
-    ((PlayerEntityModel) model).rightLeg.visible = false;
+    if (Configuration.getInstance().affectsBody) {
+      ((PlayerEntityModel) model).body.visible = false;
+    }
+    if (Configuration.getInstance().affectsLeftArm) {
+      ((PlayerEntityModel) model).leftArm.visible = false;
+    }
+    if (Configuration.getInstance().affectsLeftLeg) {
+      ((PlayerEntityModel) model).leftLeg.visible = false;
+    }
+    if (Configuration.getInstance().affectsRightArm) {
+      ((PlayerEntityModel) model).rightArm.visible = false;
+    }
+    if (Configuration.getInstance().affectsRightLeg) {
+      ((PlayerEntityModel) model).rightLeg.visible = false;
+    }
     original.call(model, matrices, vertices, light, overlay, color);
   }
 }

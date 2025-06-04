@@ -9,6 +9,21 @@
   "text.autoconfig.look-at-my-arms.option.modEnabledAlert": "Mod Enabled Alert",
   "text.autoconfig.look-at-my-arms.option.modEnabledAlert.@Tooltip": "Should text be displayed when pressing the Mod Enabled keybind?",
 
+  "text.autoconfig.look-at-my-arms.option.affectsBody": "Affects Body",
+  "text.autoconfig.look-at-my-arms.option.affectsBody.@Tooltip": "Should the body be removed?",
+
+  "text.autoconfig.look-at-my-arms.option.affectsLeftArm": "Affects Left Arm",
+  "text.autoconfig.look-at-my-arms.option.affectsLeftArm.@Tooltip": "Should the left arm be removed?",
+
+  "text.autoconfig.look-at-my-arms.option.affectsLeftLeg": "Affects Left Leg",
+  "text.autoconfig.look-at-my-arms.option.affectsLeftLeg.@Tooltip": "Should the left leg be removed?",
+
+  "text.autoconfig.look-at-my-arms.option.affectsRightArm": "Affects Right Arm",
+  "text.autoconfig.look-at-my-arms.option.affectsRightArm.@Tooltip": "Should the right arm be removed?",
+
+  "text.autoconfig.look-at-my-arms.option.affectsRightLeg": "Affects Right Leg",
+  "text.autoconfig.look-at-my-arms.option.affectsRightLeg.@Tooltip": "Should the right leg be removed?",
+
   "key.look-at-my-arms": "Look At My Arms",
   "key.look-at-my-arms.toggle_mod_enabled": "Toggle Mod Enabled"
 }

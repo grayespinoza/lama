@@ -16,6 +16,26 @@ public class Configuration implements ConfigData {
   @ConfigEntry.Gui.Tooltip
   public boolean modEnabledAlert = true;
 
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
+  public boolean affectsBody = true;
+
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
+  public boolean affectsLeftArm = false;
+
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
+  public boolean affectsLeftLeg = true;
+
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
+  public boolean affectsRightArm = false;
+
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
+  public boolean affectsRightLeg = true;
+
   public static void init() {
     AutoConfig.register(Configuration.class, Toml4jConfigSerializer::new);
   }
