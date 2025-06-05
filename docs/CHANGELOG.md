@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.2.1+1.21.x](https://github.com/grayespinoza/lama/compare/0.2.0+1.21.x..0.2.1+1.21.x) - 2025-06-05
+
+### Bug Fixes
+
+- Distinguish mod's config from others - ([d2dd883](https://github.com/grayespinoza/lama/commit/d2dd8833bae825ff1c4dec2cc2624b06c7d09c47))
 ## [0.2.0+1.21.x](https://github.com/grayespinoza/lama/compare/0.1.0+1.21.x..0.2.0+1.21.x) - 2025-06-04
 
 ### Features
