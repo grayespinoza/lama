@@ -3,7 +3,7 @@ package dev.heygrey.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.heygrey.config.Configuration;
+import dev.heygrey.config.LookAtMyArmsConfiguration;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -48,7 +48,7 @@ public abstract class ArmorFeatureRendererMixin<
       original.call(renderer, matrices, vertexConsumers, stack, slot, light, armorModel);
       return;
     }
-    if (!Configuration.getInstance().modEnabled) {
+    if (!LookAtMyArmsConfiguration.getInstance().modEnabled) {
       original.call(renderer, matrices, vertexConsumers, stack, slot, light, armorModel);
       return;
     }

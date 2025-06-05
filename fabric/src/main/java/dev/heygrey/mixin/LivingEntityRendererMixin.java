@@ -3,7 +3,7 @@ package dev.heygrey.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.heygrey.config.Configuration;
+import dev.heygrey.config.LookAtMyArmsConfiguration;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.render.VertexConsumer;
@@ -42,7 +42,7 @@ public abstract class LivingEntityRendererMixin<
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
-    if (!Configuration.getInstance().modEnabled) {
+    if (!LookAtMyArmsConfiguration.getInstance().modEnabled) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
@@ -62,19 +62,19 @@ public abstract class LivingEntityRendererMixin<
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
-    if (Configuration.getInstance().affectsBody) {
+    if (LookAtMyArmsConfiguration.getInstance().affectsBody) {
       ((PlayerEntityModel) model).body.visible = false;
     }
-    if (Configuration.getInstance().affectsLeftArm) {
+    if (LookAtMyArmsConfiguration.getInstance().affectsLeftArm) {
       ((PlayerEntityModel) model).leftArm.visible = false;
     }
-    if (Configuration.getInstance().affectsLeftLeg) {
+    if (LookAtMyArmsConfiguration.getInstance().affectsLeftLeg) {
       ((PlayerEntityModel) model).leftLeg.visible = false;
     }
-    if (Configuration.getInstance().affectsRightArm) {
+    if (LookAtMyArmsConfiguration.getInstance().affectsRightArm) {
       ((PlayerEntityModel) model).rightArm.visible = false;
     }
-    if (Configuration.getInstance().affectsRightLeg) {
+    if (LookAtMyArmsConfiguration.getInstance().affectsRightLeg) {
       ((PlayerEntityModel) model).rightLeg.visible = false;
     }
     original.call(model, matrices, vertices, light, overlay, color);

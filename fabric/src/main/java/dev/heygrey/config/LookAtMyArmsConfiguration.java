@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 
 @Config(name = "look-at-my-arms")
-public class Configuration implements ConfigData {
+public class LookAtMyArmsConfiguration implements ConfigData {
   @ConfigEntry.Category("Client")
   @ConfigEntry.Gui.Tooltip
   public boolean modEnabled = true;
@@ -37,10 +37,10 @@ public class Configuration implements ConfigData {
   public boolean affectsRightLeg = true;
 
   public static void init() {
-    AutoConfig.register(Configuration.class, Toml4jConfigSerializer::new);
+    AutoConfig.register(LookAtMyArmsConfiguration.class, Toml4jConfigSerializer::new);
   }
 
-  public static Configuration getInstance() {
-    return AutoConfig.getConfigHolder(Configuration.class).getConfig();
+  public static LookAtMyArmsConfiguration getInstance() {
+    return AutoConfig.getConfigHolder(LookAtMyArmsConfiguration.class).getConfig();
   }
 }
