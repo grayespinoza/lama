@@ -25,7 +25,8 @@ public class LookAtMyArms implements ClientModInitializer {
     ClientTickEvents.END_CLIENT_TICK.register(
         client -> {
           while (toggleModEnabledKey.wasPressed()) {
-            LookAtMyArmsConfiguration.getInstance().modEnabled = !LookAtMyArmsConfiguration.getInstance().modEnabled;
+            LookAtMyArmsConfiguration.getInstance().modEnabled =
+                !LookAtMyArmsConfiguration.getInstance().modEnabled;
             if (LookAtMyArmsConfiguration.getInstance().modEnabledAlert) {
               if (LookAtMyArmsConfiguration.getInstance().modEnabled) {
                 client.player.sendMessage(Text.literal("Look At My Arms Enabled"), true);

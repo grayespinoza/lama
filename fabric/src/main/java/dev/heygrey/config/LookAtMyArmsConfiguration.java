@@ -36,6 +36,14 @@ public class LookAtMyArmsConfiguration implements ConfigData {
   @ConfigEntry.Gui.Tooltip
   public boolean affectsRightLeg = true;
 
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
+  public boolean affectsOnlyEmptyHands = false;
+
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
+  public boolean affectsPlayerShadow = true;
+
   public static void init() {
     AutoConfig.register(LookAtMyArmsConfiguration.class, Toml4jConfigSerializer::new);
   }

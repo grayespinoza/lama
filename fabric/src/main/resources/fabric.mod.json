@@ -15,9 +15,7 @@
   "environment": "client",
   "entrypoints": {
     "client": ["dev.heygrey.LookAtMyArms"],
-    "modmenu": [
-      "dev.heygrey.config.LookAtMyArmsModMenuIntegration"
-    ]
+    "modmenu": ["dev.heygrey.config.LookAtMyArmsModMenuIntegration"]
   },
   "custom": {
     "modmenu": {

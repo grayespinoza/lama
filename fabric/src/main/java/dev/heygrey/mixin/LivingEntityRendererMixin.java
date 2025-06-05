@@ -10,10 +10,12 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Arm;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -65,18 +67,76 @@ public abstract class LivingEntityRendererMixin<
     if (LookAtMyArmsConfiguration.getInstance().affectsBody) {
       ((PlayerEntityModel) model).body.visible = false;
     }
-    if (LookAtMyArmsConfiguration.getInstance().affectsLeftArm) {
+    boolean isLeftHanded = MinecraftClient.getInstance().player.getMainArm() == Arm.LEFT;
+    if (LookAtMyArmsConfiguration.getInstance().affectsLeftArm
+        && !LookAtMyArmsConfiguration.getInstance().affectsOnlyEmptyHands) {
+      ((PlayerEntityModel) model).leftArm.visible = false;
+    }
+    if (LookAtMyArmsConfiguration.getInstance().affectsLeftArm
+            && LookAtMyArmsConfiguration.getInstance().affectsOnlyEmptyHands
+            && isLeftHanded
+            && MinecraftClient.getInstance().player.getMainHandStack().isEmpty()
+        || LookAtMyArmsConfiguration.getInstance().affectsLeftArm
+            && LookAtMyArmsConfiguration.getInstance().affectsOnlyEmptyHands
+            && !isLeftHanded
+            && MinecraftClient.getInstance().player.getOffHandStack().isEmpty()) {
       ((PlayerEntityModel) model).leftArm.visible = false;
     }
     if (LookAtMyArmsConfiguration.getInstance().affectsLeftLeg) {
       ((PlayerEntityModel) model).leftLeg.visible = false;
     }
-    if (LookAtMyArmsConfiguration.getInstance().affectsRightArm) {
+    if (LookAtMyArmsConfiguration.getInstance().affectsRightArm
+        && !LookAtMyArmsConfiguration.getInstance().affectsOnlyEmptyHands) {
+      ((PlayerEntityModel) model).rightArm.visible = false;
+    }
+    if (LookAtMyArmsConfiguration.getInstance().affectsRightArm
+            && LookAtMyArmsConfiguration.getInstance().affectsOnlyEmptyHands
+            && isLeftHanded
+            && MinecraftClient.getInstance().player.getOffHandStack().isEmpty()
+        || LookAtMyArmsConfiguration.getInstance().affectsRightArm
+            && LookAtMyArmsConfiguration.getInstance().affectsOnlyEmptyHands
+            && !isLeftHanded
+            && MinecraftClient.getInstance().player.getMainHandStack().isEmpty()) {
       ((PlayerEntityModel) model).rightArm.visible = false;
     }
     if (LookAtMyArmsConfiguration.getInstance().affectsRightLeg) {
       ((PlayerEntityModel) model).rightLeg.visible = false;
     }
     original.call(model, matrices, vertices, light, overlay, color);
+  }
+
+  @WrapOperation(
+      method =
+          "getShadowRadius(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;)F",
+      at =
+          @At(
+              value = "INVOKE",
+              target =
+                  "Lnet/minecraft/client/render/entity/EntityRenderer;getShadowRadius(Lnet/minecraft/client/render/entity/state/EntityRenderState;)F"))
+  private float wrapGetShadowRadius(
+      LivingEntityRenderer renderer, EntityRenderState state, Operation<Float> original) {
+    if (!(state instanceof PlayerEntityRenderState playerState)) {
+      return original.call(renderer, state);
+    }
+    if (!LookAtMyArmsConfiguration.getInstance().modEnabled) {
+      return original.call(renderer, state);
+    }
+    if (MinecraftClient.getInstance().currentScreen != null) {
+      return original.call(renderer, state);
+    }
+    boolean isSelf =
+        playerState.name.equals(MinecraftClient.getInstance().player.getName().getString());
+    if (!isSelf) {
+      return original.call(renderer, state);
+    }
+    boolean isFirstPerson =
+        MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON;
+    if (!isFirstPerson) {
+      return original.call(renderer, state);
+    }
+    if (!LookAtMyArmsConfiguration.getInstance().affectsPlayerShadow) {
+      return original.call(renderer, state);
+    }
+    return 0.0f;
   }
 }
