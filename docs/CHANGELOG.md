@@ -1,6 +1,10 @@
 # Changelog
 
-## [0.2.1+1.21.x](https://github.com/grayespinoza/lama/compare/0.2.0+1.21.x..0.2.1+1.21.x) - 2025-06-05
+## [0.3.0+1.21.x](https://github.com/grayespinoza/lama/compare/0.2.0+1.21.x..0.3.0+1.21.x) - 2025-06-05
+
+### Features
+
+- Add config options for empty hands and player shadow - ([2de6f4a](https://github.com/grayespinoza/lama/commit/2de6f4a0e75164beebf96c2c7ce69ac9f1b7af30))
 
 ### Bug Fixes
 
