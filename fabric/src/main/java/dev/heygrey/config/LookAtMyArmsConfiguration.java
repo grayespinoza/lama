@@ -22,6 +22,10 @@ public class LookAtMyArmsConfiguration implements ConfigData {
 
   @ConfigEntry.Category("Client")
   @ConfigEntry.Gui.Tooltip
+  public boolean affectsHead = true;
+
+  @ConfigEntry.Category("Client")
+  @ConfigEntry.Gui.Tooltip
   public boolean affectsLeftArm = false;
 
   @ConfigEntry.Category("Client")

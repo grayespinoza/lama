@@ -67,6 +67,9 @@ public abstract class LivingEntityRendererMixin<
     if (LookAtMyArmsConfiguration.getInstance().affectsBody) {
       ((PlayerEntityModel) model).body.visible = false;
     }
+    if (LookAtMyArmsConfiguration.getInstance().affectsHead) {
+      ((PlayerEntityModel) model).head.visible = false;
+    }
     boolean isLeftHanded = MinecraftClient.getInstance().player.getMainArm() == Arm.LEFT;
     if (LookAtMyArmsConfiguration.getInstance().affectsLeftArm
         && !LookAtMyArmsConfiguration.getInstance().affectsOnlyEmptyHands) {

@@ -12,6 +12,9 @@
   "text.autoconfig.look-at-my-arms.option.affectsBody": "Affects Body",
   "text.autoconfig.look-at-my-arms.option.affectsBody.@Tooltip": "Should the body be removed?",
 
+  "text.autoconfig.look-at-my-arms.option.affectsHead": "Affects Head",
+  "text.autoconfig.look-at-my-arms.option.affectsHead.@Tooltip": "Should the head be removed?",
+
   "text.autoconfig.look-at-my-arms.option.affectsLeftArm": "Affects Left Arm",
   "text.autoconfig.look-at-my-arms.option.affectsLeftArm.@Tooltip": "Should the left arm be removed?",
 
