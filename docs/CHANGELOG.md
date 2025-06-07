@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.1+1.21.x](https://github.com/grayespinoza/lama/compare/0.3.0+1.21.x..0.3.1+1.21.x) - 2025-06-07
+
+### Bug Fixes
+
+- Add option to remove head - ([43c0068](https://github.com/grayespinoza/lama/commit/43c006889142ce47f320edf8f82583a9b286e294))
 ## [0.3.0+1.21.x](https://github.com/grayespinoza/lama/compare/0.2.0+1.21.x..0.3.0+1.21.x) - 2025-06-05
 
 ### Features
