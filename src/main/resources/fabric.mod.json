@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "look-at-my-arms",
-  "version": "${mod_version}",
+  "version": "${version}",
   "name": "Look At My Arms",
-  "description": "${mod_description}",
+  "description": "Lose the legs and body!",
   "authors": ["eyeofgrey"],
   "contact": {
     "homepage": "https://modrinth.com/mod/lama",
     "sources": "https://github.com/grayespinoza/lama",
     "issues": "https://github.com/grayespinoza/lama/issues"
   },
-  "license": "${license}",
+  "license": "LGPL-3.0-only",
   "icon": "assets/look-at-my-arms/icon.png",
   "environment": "client",
   "entrypoints": {
@@ -27,10 +27,10 @@
   },
   "mixins": ["look-at-my-arms.mixins.json"],
   "depends": {
-    "fabricloader": ">=${fabric_loader_version}",
-    "minecraft": "~${minecraft_version}",
-    "java": ">=${java_version}",
+    "fabricloader": ">=${loader}",
+    "minecraft": "${minecraft}",
     "fabric-api": "*",
+    "fabric-key-binding-api-v1": "*",
     "cloth-config": "*"
   },
   "suggests": {
