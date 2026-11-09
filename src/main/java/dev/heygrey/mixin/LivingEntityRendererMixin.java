@@ -3,36 +3,39 @@ package dev.heygrey.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.heygrey.config.LookAtMyArmsConfiguration;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.Perspective;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.render.entity.state.EntityRenderState;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Arm;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.CameraType;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.PlayerRenderState;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin<
-    T extends LivingEntity, S extends LivingEntityRenderState, M extends EntityModel<? super S>> {
+    T extends LivingEntity,
+    S extends LivingEntityRenderState,
+    M extends EntityModel<? super S>> {
+
   @WrapOperation(
       method =
-          "render(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
+          "render(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
       at =
           @At(
               value = "INVOKE",
               target =
-                  "Lnet/minecraft/client/render/entity/model/EntityModel;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;III)V"))
+                  "Lnet/minecraft/client/model/EntityModel;renderToBuffer(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V"))
   private void wrapRender(
       M model,
-      MatrixStack matrices,
+      PoseStack matrices,
       VertexConsumer vertices,
       int light,
       int overlay,
@@ -40,20 +43,20 @@ public abstract class LivingEntityRendererMixin<
       Operation<Void> original,
       @Local(argsOnly = true) S state) {
     LookAtMyArmsConfiguration lamaConfiguration = LookAtMyArmsConfiguration.getInstance();
-    MinecraftClient client = MinecraftClient.getInstance();
+    Minecraft client = Minecraft.getInstance();
 
     if (!lamaConfiguration.hide) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
 
-    if (!(model instanceof PlayerEntityModel)
-        || !(state instanceof PlayerEntityRenderState playerState)) {
+    if (!(model instanceof PlayerModel)
+        || !(state instanceof PlayerRenderState playerState)) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
 
-    if (client.currentScreen != null) {
+    if (client.screen != null) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
@@ -64,57 +67,57 @@ public abstract class LivingEntityRendererMixin<
       return;
     }
 
-    boolean isFirstPerson = client.options.getPerspective() == Perspective.FIRST_PERSON;
+    boolean isFirstPerson = client.options.getCameraType() == CameraType.FIRST_PERSON;
     if (!isFirstPerson) {
       original.call(model, matrices, vertices, light, overlay, color);
       return;
     }
 
     if (lamaConfiguration.affectsBody) {
-      ((PlayerEntityModel) model).body.visible = false;
+      ((PlayerModel) model).body.visible = false;
     }
 
     if (lamaConfiguration.affectsHead) {
-      ((PlayerEntityModel) model).head.visible = false;
+      ((PlayerModel) model).head.visible = false;
     }
 
-    boolean isLeftHanded = client.player.getMainArm() == Arm.LEFT;
+    boolean isLeftHanded = client.player.getMainArm() == HumanoidArm.LEFT;
     if (lamaConfiguration.affectsLeftArm && !lamaConfiguration.affectsOnlyEmptyHands) {
-      ((PlayerEntityModel) model).leftArm.visible = false;
+      ((PlayerModel) model).leftArm.visible = false;
     }
 
     if (lamaConfiguration.affectsLeftArm
             && lamaConfiguration.affectsOnlyEmptyHands
             && isLeftHanded
-            && client.player.getMainHandStack().isEmpty()
+            && client.player.getMainHandItem().isEmpty()
         || lamaConfiguration.affectsLeftArm
             && lamaConfiguration.affectsOnlyEmptyHands
             && !isLeftHanded
-            && client.player.getOffHandStack().isEmpty()) {
-      ((PlayerEntityModel) model).leftArm.visible = false;
+            && client.player.getOffhandItem().isEmpty()) {
+      ((PlayerModel) model).leftArm.visible = false;
     }
 
     if (lamaConfiguration.affectsLeftLeg) {
-      ((PlayerEntityModel) model).leftLeg.visible = false;
+      ((PlayerModel) model).leftLeg.visible = false;
     }
 
     if (lamaConfiguration.affectsRightArm && !lamaConfiguration.affectsOnlyEmptyHands) {
-      ((PlayerEntityModel) model).rightArm.visible = false;
+      ((PlayerModel) model).rightArm.visible = false;
     }
 
     if (lamaConfiguration.affectsRightArm
             && lamaConfiguration.affectsOnlyEmptyHands
             && isLeftHanded
-            && client.player.getOffHandStack().isEmpty()
+            && client.player.getOffhandItem().isEmpty()
         || lamaConfiguration.affectsRightArm
             && lamaConfiguration.affectsOnlyEmptyHands
             && !isLeftHanded
-            && client.player.getMainHandStack().isEmpty()) {
-      ((PlayerEntityModel) model).rightArm.visible = false;
+            && client.player.getMainHandItem().isEmpty()) {
+      ((PlayerModel) model).rightArm.visible = false;
     }
 
     if (lamaConfiguration.affectsRightLeg) {
-      ((PlayerEntityModel) model).rightLeg.visible = false;
+      ((PlayerModel) model).rightLeg.visible = false;
     }
 
     original.call(model, matrices, vertices, light, overlay, color);
@@ -122,25 +125,25 @@ public abstract class LivingEntityRendererMixin<
 
   @WrapOperation(
       method =
-          "getShadowRadius(Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;)F",
+          "getShadowRadius(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;)F",
       at =
           @At(
               value = "INVOKE",
               target =
-                  "Lnet/minecraft/client/render/entity/EntityRenderer;getShadowRadius(Lnet/minecraft/client/render/entity/state/EntityRenderState;)F"))
+                  "Lnet/minecraft/client/renderer/entity/EntityRenderer;getShadowRadius(Lnet/minecraft/client/renderer/entity/state/EntityRenderState;)F"))
   private float wrapGetShadowRadius(
       LivingEntityRenderer renderer, EntityRenderState state, Operation<Float> original) {
-    MinecraftClient client = MinecraftClient.getInstance();
+    Minecraft client = Minecraft.getInstance();
 
     if (!LookAtMyArmsConfiguration.getInstance().hide) {
       return original.call(renderer, state);
     }
 
-    if (!(state instanceof PlayerEntityRenderState playerState)) {
+    if (!(state instanceof PlayerRenderState playerState)) {
       return original.call(renderer, state);
     }
 
-    if (client.currentScreen != null) {
+    if (client.screen != null) {
       return original.call(renderer, state);
     }
 
@@ -149,7 +152,7 @@ public abstract class LivingEntityRendererMixin<
       return original.call(renderer, state);
     }
 
-    boolean isFirstPerson = client.options.getPerspective() == Perspective.FIRST_PERSON;
+    boolean isFirstPerson = client.options.getCameraType() == CameraType.FIRST_PERSON;
     if (!isFirstPerson) {
       return original.call(renderer, state);
     }
